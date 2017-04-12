@@ -1,0 +1,20 @@
+Copy source code from a list website to <name>.html file
+ - pretty it up a little so there are no header or tail lines to worry about
+ - Run: %s/&#8217;/'/g in vim to put in apostrophies if needed
+
+Customize an extract<name>.awk file to pull out title and author
+
+run$ awk -f extract<name>.awk -f functionLibrary.awk <name>.html
+
+Will result in <name>.table file
+From now on any edits that need made should be done to the .table file
+
+Now run ./tabulateBooks.sh to generate the tabulatedData.dat file 
+	  (edit the tabulateBooks.sh file to include the desired .table files)
+
+Run ./scrapeDates tabulatedBooks.dat
+	- This tries to find published dates using google and wolframalpha 
+	  and overwrites tabulatedDates.dat file (first copying current file
+    to tabulatedDates.backup.dat)
+
+
