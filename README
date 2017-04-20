@@ -9,12 +9,18 @@ run$ awk -f extract<name>.awk -f functionLibrary.awk <name>.html
 Will result in <name>.table file
 From now on any edits that need made should be done to the .table file
 
-Now run ./tabulateBooks.sh to generate the tabulatedData.dat file 
+Now run ./tabulateBooks.sh to generate the tabulatedData.csv file 
 	  (edit the tabulateBooks.sh file to include the desired .table files)
+
+**Needs updating**
+Run python findDuplicates.py tabulatedBooks.csv
+    If duplicates are found, edit the .table files such that the names agree
+
+Rerun tabulateBooks.sh
 
 Run ./scrapeDates tabulatedBooks.dat
 	- This tries to find published dates using google and wolframalpha 
-	  and overwrites tabulatedDates.dat file (first copying current file
-    to tabulatedDates.backup.dat)
+	  and overwrites tabulatedBooks_withDates.csv file (first copying current
+    file to tabulatedBooks_withData.csv.backup)
 
 

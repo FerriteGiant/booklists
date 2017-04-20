@@ -2,11 +2,11 @@
 #usage: ./tabulateBooks.sh
 
 awk -f tabulateBooks.awk \
-data/bookman_librarians.table \
-data/bbc_the_big_read.table \
-data/modern_library_readers.table \
-data/modern_library_board.table \
-data/npr_beach_books.table \
-data/good_reads.table \
-data/harvard_bookstore.table \
-| sort -nr -t$'|' #> tabulatedBooks.dat
+../rawData/bookman_librarians.table \
+../rawData/bbc_the_big_read.table \
+../rawData/modern_library_readers.table \
+../rawData/modern_library_board.table \
+../rawData/npr_beach_books.table \
+../rawData/good_reads.table \
+../rawData/harvard_bookstore.table \
+| sort -t"," -k1.2,1gr -k2.2,2gr > tabulatedBooks.csv

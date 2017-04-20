@@ -1,6 +1,6 @@
 #!/usr/bin/awk
 BEGIN{
-RS="<[^>]+>";
+RS="<[^>]+>"; #Make each HTML tag a row divider
 OFS="+";
 ORS="";
 }
@@ -11,17 +11,17 @@ ORS="";
 #	print err > "/dev/stderr"
 #
 
-/Published/{
-if ($0=="Published")
-	pubNR=NR
+/Originally published/{
+if ($0=="Originally published") #Did it work?
+	pubNR=NR #Remember row number
 else
-	next
+	next #No luck, proceed to next book
 }
 
 
-NR==pubNR+4{
+NR==pubNR+3{ #Date will be 3 rows after the 'originally published' text
 dateArrayLength=split($0,dateArray," ")
-year=dateArray[dateArrayLength]
+year=dateArray[dateArrayLength] #Pull out just the year
 print year
 }
 

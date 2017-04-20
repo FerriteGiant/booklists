@@ -1,26 +1,34 @@
 BEGIN{
-FS="\t";
-OFS="|";
-#lineCount=100 #Number of items in the longest list
-lineCount=1 #Number of items in the longest list
+FS="\t"; #Input delimiter
+OFS=","; #Output delimiter
+lineCount=100 #Number of items in the longest list
 }
 
-#FNR<=lineCount{
-{
+{ #for every line in each file
 title=toupper($1)
 authorLast=$2
 authorFirst=$3
-#rank=(lineCount-FNR)+51
+rank=lineCount-(FNR-1)
 #bookArray[title]+=rank
-bookArray[title]+=1
-bookArray2[title]=authorFirst
-bookArray3[title]=authorLast
-bookArray4[title]=(bookArray4[title] "|" FILENAME)
+NumOfListsArray[title]+=1
+FirstNameArray[title]=authorFirst
+LastNameArray[title]=authorLast
+#Pull out filename sans extension 
+len = split(FILENAME,N1,"/")
+split(N1[len],N2,".")
+listName = N2[1]
+#Append which lists the book appears in and the rank it has in that list
+FileNameArray[title]=(FileNameArray[title] "\",\"" listName "\",\"" rank)
+totalRankArray[title]=(totalRankArray[title] + rank)
 }
 
 
 
 END{
 #print "-------------------"
-for(b in bookArray2) print bookArray[b],b,bookArray2[b],bookArray3[b],bookArray4[b]
+for(title in FirstNameArray) {
+  gsub(/^\",\"/,"",FileNameArray[title]) #Remove extra delimter 
+  # Number of lists book is in, book title, author first name, last name, lists in which book appears and rank in that list
+  print "\""NumOfListsArray[title]"\"","\""totalRankArray[title]"\"","\""title"\"","\""FirstNameArray[title]"\"","\""LastNameArray[title]"\"","\""FileNameArray[title]"\""
+  }
 }
